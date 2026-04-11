@@ -1,0 +1,40 @@
+{
+  "name": "GolfBuana Flutter",
+  "image": "ghcr.io/cirruslabs/flutter:stable",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.flutter",
+        "Dart-Code.dart-code",
+        "usernamehw.errorlens",
+        "PKief.material-icon-theme",
+        "formulahendry.auto-rename-tag",
+        "aaron-bond.better-comments",
+        "esbenp.prettier-vscode"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.defaultFormatter": "Dart-Code.dart-code",
+        "dart.flutterSdkPath": "/usr/local/flutter",
+        "dart.debugExternalPackageLibraries": false,
+        "dart.debugSdkLibraries": false,
+        "editor.tabSize": 2,
+        "editor.rulers": [80],
+        "files.trimTrailingWhitespace": true
+      }
+    }
+  },
+  "postCreateCommand": "flutter pub get && flutter doctor",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "Flutter Web",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "remoteUser": "root"
+}
