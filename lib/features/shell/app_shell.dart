@@ -7,27 +7,19 @@ class AppShell extends StatelessWidget {
   const AppShell({super.key, required this.child});
 
   int _locationToIndex(String location) {
-    if (location.startsWith('/rounds')) return 0;
+    if (location.startsWith('/lounge')) return 0;
     if (location.startsWith('/clubs')) return 1;
-    if (location.startsWith('/venues')) return 2;
+    if (location.startsWith('/rounds')) return 2;
     if (location.startsWith('/profile')) return 3;
     return 0;
   }
 
   void _onTabTapped(BuildContext context, int index) {
     switch (index) {
-      case 0:
-        context.go('/rounds');
-        break;
-      case 1:
-        context.go('/clubs');
-        break;
-      case 2:
-        context.go('/venues');
-        break;
-      case 3:
-        context.go('/profile');
-        break;
+      case 0: context.go('/lounge'); break;
+      case 1: context.go('/clubs'); break;
+      case 2: context.go('/rounds'); break;
+      case 3: context.go('/profile'); break;
     }
   }
 
