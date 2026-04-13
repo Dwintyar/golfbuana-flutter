@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/gestures.dart';
 
 class LoginPage extends StatefulWidget {
@@ -22,9 +26,26 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> _signIn() async {
+    if (_emailController.text.isEmpty || _passwordController.text.isEmpty)
+      return;
     setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 1)); // TODO: Supabase auth
-    setState(() => _isLoading = false);
+    try {
+      await Supabase.instance.client.auth.signInWithPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text,
+      );
+      if (mounted) context.go('/lounge');
+    } on AuthException catch (e) {
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(e.message), backgroundColor: Colors.red));
+    } catch (e) {
+      if (mounted)
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Login gagal'), backgroundColor: Colors.red));
+    } finally {
+      if (mounted) setState(() => _isLoading = false);
+    }
   }
 
   @override
@@ -216,23 +237,28 @@ class _LoginPageState extends State<LoginPage> {
                   // Social buttons
                   Row(
                     children: [
-                      Expanded(child: _buildSocialButton(
+                      Expanded(
+                          child: _buildSocialButton(
                         label: 'Google',
                         icon: _googleIcon(),
                         enabled: true,
                         onTap: () {},
                       )),
                       const SizedBox(width: 10),
-                      Expanded(child: _buildSocialButton(
+                      Expanded(
+                          child: _buildSocialButton(
                         label: 'Facebook',
-                        icon: const Icon(Icons.facebook, color: Colors.white38, size: 18),
+                        icon: const Icon(Icons.facebook,
+                            color: Colors.white38, size: 18),
                         enabled: false,
                         comingSoon: true,
                       )),
                       const SizedBox(width: 10),
-                      Expanded(child: _buildSocialButton(
+                      Expanded(
+                          child: _buildSocialButton(
                         label: 'LinkedIn',
-                        icon: const Icon(Icons.business, color: Colors.white38, size: 18),
+                        icon: const Icon(Icons.business,
+                            color: Colors.white38, size: 18),
                         enabled: false,
                         comingSoon: true,
                       )),
@@ -244,7 +270,8 @@ class _LoginPageState extends State<LoginPage> {
                   // Sign Up
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: Colors.white70, fontSize: 14),
+                      style:
+                          const TextStyle(color: Colors.white70, fontSize: 14),
                       children: [
                         const TextSpan(text: "Don't have an account? "),
                         TextSpan(
@@ -265,9 +292,11 @@ class _LoginPageState extends State<LoginPage> {
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: const TextStyle(color: Colors.white54, fontSize: 11),
+                      style:
+                          const TextStyle(color: Colors.white54, fontSize: 11),
                       children: [
-                        const TextSpan(text: 'By signing in, you agree to our '),
+                        const TextSpan(
+                            text: 'By signing in, you agree to our '),
                         TextSpan(
                           text: 'Kebijakan Privasi',
                           style: const TextStyle(
@@ -286,7 +315,8 @@ class _LoginPageState extends State<LoginPage> {
                   // How it works
                   RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: Colors.white54, fontSize: 12),
+                      style:
+                          const TextStyle(color: Colors.white54, fontSize: 12),
                       children: [
                         const TextSpan(text: 'Baru di GolfBuana? '),
                         TextSpan(
@@ -348,7 +378,8 @@ class _LoginPageState extends State<LoginPage> {
           borderRadius: BorderRadius.circular(28),
           borderSide: const BorderSide(color: Color(0xFF66BB6A), width: 1.5),
         ),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         suffixIcon: suffix,
       ),
     );
@@ -402,11 +433,12 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _googleIcon() {
-    return const Text('G', style: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.w700,
-      color: Color(0xFF4285F4),
-    ));
+    return const Text('G',
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w700,
+          color: Color(0xFF4285F4),
+        ));
   }
 }
 
@@ -435,11 +467,14 @@ class _HexLogoPainter extends CustomPainter {
     }
 
     // Hexagon cluster matching logo
-    drawHex(cx - r * 1.1, cy - r * 0.6, const Color(0xFFBDBDBD)); // top-left gray
+    drawHex(
+        cx - r * 1.1, cy - r * 0.6, const Color(0xFFBDBDBD)); // top-left gray
     drawHex(cx + r * 0.1, cy - r * 1.2, const Color(0xFF9E9E9E)); // top gray
-    drawHex(cx + r * 1.1, cy - r * 0.6, const Color(0xFF757575)); // top-right dark
+    drawHex(
+        cx + r * 1.1, cy - r * 0.6, const Color(0xFF757575)); // top-right dark
     drawHex(cx - r * 0.5, cy + r * 0.6, const Color(0xFF9E9E9E)); // bottom-left
-    drawHex(cx + r * 0.7, cy + r * 0.6, const Color(0xFF4CAF50)); // bottom-right GREEN
+    drawHex(cx + r * 0.7, cy + r * 0.6,
+        const Color(0xFF4CAF50)); // bottom-right GREEN
   }
 
   double cos(double rad) => _cos(rad);
