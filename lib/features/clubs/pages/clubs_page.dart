@@ -199,8 +199,8 @@ class _ClubsPageState extends State<ClubsPage> {
                         Container(
                           width: 48,
                           height: 48,
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF1A2A1A),
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF1A2A1A),
                             shape: BoxShape.circle,
                           ),
                           child: Center(

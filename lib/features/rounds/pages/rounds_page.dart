@@ -48,11 +48,11 @@ class _RoundsPageState extends State<RoundsPage> {
         backgroundColor: bgColor,
         elevation: 0,
         titleSpacing: 16,
-        title: Row(
+        title: const Row(
           children: [
-            const Icon(Icons.hexagon_outlined, color: greenLight, size: 28),
-            const SizedBox(width: 10),
-            const Text('Rounds',
+            Icon(Icons.hexagon_outlined, color: greenLight, size: 28),
+            SizedBox(width: 10),
+            Text('Rounds',
               style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w600)),
           ],
         ),
@@ -478,8 +478,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                children: const [
+              const Row(
+                children: [
                   Icon(Icons.checklist, color: greenLight, size: 18),
                   SizedBox(width: 8),
                   Text('Check-in', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
@@ -611,7 +611,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
               const Spacer(),
               GestureDetector(
                 onTap: () {},
-                child: Row(children: const [
+                child: const Row(children: [
                   Icon(Icons.refresh, color: textSecondary, size: 16),
                   SizedBox(width: 4),
                   Text('Refresh', style: TextStyle(color: textSecondary, fontSize: 13)),
@@ -624,7 +624,7 @@ class _EventDetailPageState extends State<EventDetailPage> {
                   color: const Color(0xFF1A2A1A),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Row(children: const [
+                child: const Row(children: [
                   Icon(Icons.download_outlined, color: Colors.white70, size: 14),
                   SizedBox(width: 4),
                   Text('Export PNG', style: TextStyle(color: Colors.white70, fontSize: 12)),
@@ -646,8 +646,8 @@ class _EventDetailPageState extends State<EventDetailPage> {
             children: [
               Container(
                 padding: const EdgeInsets.all(12),
-                child: Column(
-                  children: const [
+                child: const Column(
+                  children: [
                     Text('EGT – EXPLORATIONISTS GOLF\nTOURNAMENT 2025',
                       textAlign: TextAlign.center,
                       style: TextStyle(color: Colors.white, fontWeight: FontWeight.w700, fontSize: 14)),
@@ -710,10 +710,10 @@ class _EventDetailPageState extends State<EventDetailPage> {
   Widget _buildHCP() {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(16),
+        const Padding(
+          padding: EdgeInsets.all(16),
           child: Row(
-            children: const [
+            children: [
               Text('HCP Correction — 144 players corrected',
                 style: TextStyle(color: Colors.white, fontSize: 13)),
               Spacer(),

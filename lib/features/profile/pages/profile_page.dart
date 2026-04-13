@@ -170,12 +170,12 @@ class _ProfilePageState extends State<ProfilePage> {
       child: Container(padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(color: card, borderRadius: BorderRadius.circular(12)),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(children: [
-            const Icon(Icons.emoji_events_outlined, color: green, size: 18),
-            const SizedBox(width: 8),
-            const Text('Tournament History', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
-            const Spacer(),
-            const Text('2 tournament', style: TextStyle(color: secondary, fontSize: 12)),
+          const Row(children: [
+            Icon(Icons.emoji_events_outlined, color: green, size: 18),
+            SizedBox(width: 8),
+            Text('Tournament History', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
+            Spacer(),
+            Text('2 tournament', style: TextStyle(color: secondary, fontSize: 12)),
           ]),
           const SizedBox(height: 12),
           Container(padding: const EdgeInsets.all(12),
@@ -320,7 +320,7 @@ class _SettingsSheetState extends State<_SettingsSheet> {
         Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600)),
         Text(sub, style: const TextStyle(color: secondary, fontSize: 12)),
       ])),
-      Switch(value: value, onChanged: onChanged, activeColor: const Color(0xFF66BB6A)),
+      Switch(value: value, onChanged: onChanged, activeThumbColor: const Color(0xFF66BB6A)),
     ]);
   }
 }
@@ -602,7 +602,7 @@ class _AdminDashboardPageState extends State<AdminDashboardPage> {
             SizedBox(height: 4),
             Text('Dropdown pilih caddy saat buat round', style: TextStyle(color: secondary, fontSize: 12)),
           ])),
-          Switch(value: false, onChanged: (_) {}, activeColor: green),
+          Switch(value: false, onChanged: (_) {}, activeThumbColor: green),
         ])),
     ]);
   }
@@ -695,7 +695,11 @@ class _HcpChartPainter extends CustomPainter {
     for (int i = 0; i < points.length; i++) {
       final x = i * size.width / (points.length - 1);
       final y = size.height - (points[i] - 9) / 6 * size.height;
-      if (i == 0) path.moveTo(x, y); else path.lineTo(x, y);
+      if (i == 0) {
+        path.moveTo(x, y);
+      } else {
+        path.lineTo(x, y);
+      }
       canvas.drawCircle(Offset(x, y), 3, dotPaint);
     }
     canvas.drawPath(path, paint);
